@@ -10,11 +10,45 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET", 'thankyoutonystark#weloveyou3000')
 CORS(app)
 
-
 @app.route('/')
 def home():
-    return redirect("https://cyberboysumanjay.github.io/JioSaavnAPI/")
-
+    base = request.host_url.rstrip('/')
+    return jsonify({
+        "status": "active",
+        "made_by": "Koshik Kumar (https://koshik.pages.dev)",
+        "routes": {
+            "/result/": {
+                "description": "Universal endpoint: song name, song link, album link or playlist link",
+                "params": {"query": "required", "lyrics": "optional (true/false)"},
+                "example": f"{base}/result/?query=alone"
+            },
+            "/song/": {
+                "description": "Search a song by name or link",
+                "params": {"query": "required", "lyrics": "optional", "songdata": "optional (true/false)"},
+                "example": f"{base}/song/?query=https://www.jiosaavn.com/song/khairiyat/PwAFSRNpAWw"
+            },
+            "/song/get/": {
+                "description": "Get a song by its ID",
+                "params": {"id": "required", "lyrics": "optional"},
+                "example": f"{base}/song/get/?id=<song-id>"
+            },
+            "/playlist/": {
+                "description": "Get all songs in a playlist link",
+                "params": {"query": "required (playlist link)", "lyrics": "optional"},
+                "example": f"{base}/playlist/?query=<jiosaavn-playlist-link>"
+            },
+            "/album/": {
+                "description": "Get all songs in an album link",
+                "params": {"query": "required (album link)", "lyrics": "optional"},
+                "example": f"{base}/album/?query=<jiosaavn-album-link>"
+            },
+            "/lyrics/": {
+                "description": "Get lyrics by song link or ID",
+                "params": {"query": "required"},
+                "example": f"{base}/lyrics/?query=<song-link-or-id>"
+            }
+        }
+    })
 
 @app.route('/song/')
 def search():
