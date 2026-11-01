@@ -163,7 +163,7 @@
 <script>
 const ENDPOINTS = [
   {
-    id: "root", path: "/", title: "Status and route list",
+    id: "root", path: "/status", title: "Status and route list",
     desc: "Returns whether the API is running, who made it, and every available route with its parameters.",
     params: []
   },
@@ -327,7 +327,7 @@ async function ping() {
   const dot = $("#dot"), txt = $("#statusText");
   dot.className = "dot"; txt.textContent = "Checking";
   try {
-    const res = await fetch(getBase() + "/");
+    const res = await fetch(getBase() + "/status");
     const data = await res.json();
     if (data && data.status === "active") { dot.className = "dot ok"; txt.textContent = "API is active"; }
     else { dot.className = "dot bad"; txt.textContent = "Unexpected response"; }
