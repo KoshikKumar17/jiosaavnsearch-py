@@ -1,4 +1,5 @@
-from Flask import Flask, request, redirect, jsonify, json
+#from Flask import Flask, request, redirect, jsonify, json
+from flask import Flask, request, redirect, jsonify, json
 import time
 import jiosaavn
 import os
