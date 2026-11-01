@@ -17,7 +17,7 @@ def home():
 
 
 @app.route('/status')
-def home():
+def status():
     base = request.host_url.rstrip('/')
     return jsonify({
         "status": "active",
