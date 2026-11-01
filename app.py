@@ -10,7 +10,13 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET", 'thankyoutonystark#weloveyou3000')
 CORS(app)
 
+
 @app.route('/')
+def home():
+    return redirect('/docs')
+
+
+@app.route('/status')
 def home():
     base = request.host_url.rstrip('/')
     return jsonify({
