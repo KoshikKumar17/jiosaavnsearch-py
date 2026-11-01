@@ -1,5 +1,5 @@
 #from Flask import Flask, request, redirect, jsonify, json
-from flask import Flask, request, redirect, jsonify, json
+from flask import Flask, request, redirect, jsonify, json, send_file
 import time
 import jiosaavn
 import os
@@ -16,6 +16,7 @@ def home():
     return jsonify({
         "status": "active",
         "made_by": "Koshik Kumar (https://koshik.pages.dev)",
+        "docs": f"{base}/docs",
         "routes": {
             "/result/": {
                 "description": "Universal endpoint: song name, song link, album link or playlist link",
@@ -49,6 +50,14 @@ def home():
             }
         }
     })
+
+
+@app.route('/docs')
+@app.route('/docs/')
+@app.route('/docs.html')
+def docs():
+    return send_file(os.path.join(os.path.dirname(__file__), 'docs.html'))
+
 
 @app.route('/song/')
 def search():
